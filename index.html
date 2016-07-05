@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>侯淞的作品</title>
+	<link rel="stylesheet" type="text/css" href="css/sheet.css" />
+</head>
+
+<body>
+	<div id="wrap">
+	    <ul>
+			<li class="items">
+				<h2>静态网页</h2>
+				<ul class="static">
+					<li><a href="static_page/jimi/index.html" target="_blank">几米简介</a></li>
+					<li><a href="static_page/tencent/index.html" target="_blank">腾讯软件中心</a></li>
+				</ul>
+			</li> 
+			<li class="items">
+				<h2>JS练习</h2>
+				<ul class="static">
+					<li><a href="js_lianxi/focus_pic/index.html" target="_blank">焦点图轮播</a></li>
+					<li><a href="js_lianxi/nav_position.html" target="_blank">网页定位导航</a></li>
+					<li><a href="js_lianxi/drop_down_list.html" target="_blank">下拉菜单</a></li>
+					<li><a href="js_lianxi/Buffer_movement.html" target="_blank">缓冲运动</a></li>
+					<li><a href="js_lianxi/objects_move.html" target="_blank">多物体运动</a></li>
+					<li><a href="js_lianxi/width_height.html" target="_blank">同时运动</a></li>
+				</ul>
+			</li>
+			<li class="items">
+				<h2>jQuery练习</h2>
+				<ul class="static">
+					<li><a href="jQuery_lianxi/focus_pic/index.html" target="_blank">焦点图轮播</a></li>
+					<li><a href="jQuery_lianxi/nav_position.html" target="_blank">网页定位导航</a></li>
+					<li><a href="jQuery_lianxi/drop_down_list.html" target="_blank">下拉菜单</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+        window.onload = function(){
+        	var static = getByClass('wrap','static'),
+        	    oli = getByClass('wrap','items'),
+        	    heights = [];
+        	    for (var j = 0; j < static.length; j++) {
+	        		var data = static[j].offsetHeight;
+	        		heights.push(data);
+	        		static[j].index = j;
+	        		static[j].style.height = 0 + 'px';
+	        	};
+	        	for (var k = 0; k < oli.length; k++) {
+	        		oli[k].index = k;
+	        		oli[k].mark = false;
+	        		oli[k].onclick = function(event){
+	        			var event = event||window.event;
+	        			if (event.stopPropagation) {
+	        				event.stopPropagation();
+	        			}
+	        			if (event.cancelBubble) {
+	        				event.cancelBubble = true;
+	        			}
+		        		var num = this.index;
+		        		var aa = this;
+	        		    var oUl = aa.getElementsByTagName('ul')[0];
+	        			for (var m = 0; m < oli.length; m++) {
+	        				if (oli[m].mark) {
+        					    var oUlb = oli[m].getElementsByTagName('ul')[0];
+        					    movement(oUlb,0);
+        					    oli[m].mark = false;
+        					}
+        				}
+        				movement(oUl,heights[num]);
+	        			this.mark = true;
+        			}
+        		}
+        		document.onclick = function(){
+        			for (var n = 0; n < oli.length; n++) {
+	        				if (oli[n].mark) {
+        					    var oUlb = oli[n].getElementsByTagName('ul')[0];
+        					    movement(oUlb,0);
+        					    oli[n].mark = false;
+        					}
+        				}
+        		}
+        	//通过父元素ID和子元素类名获取元素数组
+        	function getByClass(parentId,cls){
+        		var parent = document.getElementById(parentId);
+        		var children = parent.getElementsByTagName('*');
+        		var selected = [];
+        		for (var i = 0; i < children.length; i++) {
+        			var classname = children[i].className;
+        			if (classname == cls) {
+        				selected.push(children[i]);
+        			}
+        		}
+        		return selected;
+        	}
+        	//改变高度的函数
+        	function movement(obj,target){
+        		clearInterval(obj.timer);
+				obj.timer = setInterval(function(){
+	    			var nowHeight = obj.offsetHeight,
+	    			    speed = 0;
+					if (target>nowHeight) {
+						speed = Math.ceil((target-nowHeight)/8);
+					}else{
+						speed = Math.floor((target-nowHeight)/8);
+					}
+					if (target == nowHeight) {
+						clearInterval(obj.timer);
+					}else{
+						obj.style.height = nowHeight + speed +'px';
+					}
+				},30);
+			}
+    	}
+	</script>
+</body>
+</html>

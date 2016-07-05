@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>焦点图轮播演示</title>
+<style>
+body,ul{margin: 0; padding: 0;}
+li{list-style: none;}
+
+.banner{
+    width: 800px;
+    height: 450px;
+    margin: 100px auto;
+    position: relative;
+	overflow:hidden;
+    z-index: 1;
+}
+#banner_imgs{
+    width: 700%;
+    position: absolute;
+    left: 0; top: 0;
+}
+#banner_imgs li{
+    float: left;
+}
+#banner_imgs img{
+    width: 800px;
+    height: 100%;
+    display: block;
+}
+#number{
+    width: 100%;
+    text-align:center;
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    z-index: 2;
+}
+#number a{
+    display: inline-block;
+    width: 20px;
+    background-color: #fff;
+    height: 6px;
+    overflow: hidden;
+}
+.arrow { cursor: pointer; display: none; line-height: 39px; text-align: center; font-size: 36px; font-weight: bold; width: 40px; height: 40px;  position: absolute; z-index: 2; top: 180px; background-color: RGBA(0,0,0,.3); color: #fff;text-decoration: none;}
+.arrow:hover { background-color: RGBA(0,0,0,.7);}
+.banner:hover .arrow {display: block;}
+#prev { left: 20px;}
+#next { right: 20px;}
+#number a.now { background: red;}
+</style>
+</head>
+
+<body>
+<div class="banner">
+    <ul id="banner_imgs" style="left: -800px;">
+        <li><a href="javascript:;"><img src="images/pic5.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic1.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic2.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic3.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic4.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic5.jpg" alt=""></a></li>
+        <li><a href="javascript:;"><img src="images/pic1.jpg" alt=""></a></li>
+    </ul>
+    <div id="number">
+        <a index="1" href="javascript:;" class="now"></a>
+        <a index="2" href="javascript:;"></a>
+        <a index="3" href="javascript:;"></a>
+        <a index="4" href="javascript:;"></a>
+        <a index="5" href="javascript:;"></a>
+    </div>
+    <a href="javascript:;" id="prev" class="arrow">&lt;</a>
+    <a href="javascript:;" id="next" class="arrow">&gt;</a>
+</div>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var oUl = $('#banner_imgs'),
+        oLi = $('#banner_imgs li'),
+        oA = $('#number a'),
+        prev = $('#prev'),
+        next = $('#next'),
+        len = 5,//实际图片张数
+        timer = null,
+        picWidth = 800,//图片的宽度
+        index = 1,
+        interval = 3000;
+
+        //制作图片移动地动画效果
+        function animate(offset){
+            var time = 300,
+                newLeft = parseInt(oUl.css('left')) + offset;
+            if (offset > 0) {
+                offset = '+=' + offset;
+            }else{
+                offset = '-=' + Math.abs(offset);
+            }
+                oUl.animate({'left': offset}, time, function(){
+                    if (newLeft < -picWidth*len) {
+                        oUl.css('left',-picWidth);
+                    }
+                    if (newLeft > -picWidth) {
+                        oUl.css('left',-picWidth*len);
+                    }
+                });
+        }
+     
+        //封装与图片同步的按钮改变样式的函数
+        function getChange(){
+            oA.eq(index-1).addClass('now').siblings().removeClass('now');
+            }
+
+        //封装点击前一张按钮时的函数
+        prev.on('click' ,function () {
+            if (oUl.is(':animated')) {
+                return;
+            }
+            animate(picWidth);
+            if (index === 1) {
+                index = 5
+            }else{
+                index--;
+            }
+            getChange(index);
+        });
+
+        //封装点击下一张按钮时的函数
+        next.on('click',function () {
+            if (oUl.is(':animated')) {
+                return;
+            }
+            animate(-picWidth);
+            if (index === 5) {
+                index = 1
+            }else{
+                index++;
+            }
+            getChange();
+        }) ;
+
+        //绑定小方块与对应的图片
+        oA.each(function(){
+            var m = $(this),
+                num = m.index();
+            m.attr('index',num+1);
+            oA.on('click',function(){
+                if (oUl.is(':animated')) {
+                    return;
+                }
+                if (oUl.hasClass('now')) {
+                    return;
+                }
+                var myIndex = parseInt($(this).attr('index'));
+                var offset = -picWidth*(myIndex-index);
+                animate(offset);
+                index = myIndex;
+                getChange();
+            });    
+        });
+
+        //实现自动轮播和当鼠标悬停在图片上时暂停轮播，离开后继续
+        function start () {
+            timer = setTimeout(function(){
+                next.trigger('click');
+                start();
+            },interval);
+        }
+        function stop(){
+            clearTimeout(timer);
+        }
+        oUl.hover(stop,start);
+        start();
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+* {padding:0; margin:0; font-size:14px; font-family: Verdana, Geneva, sans-serif,"å®‹ä½“"; }
+.clearfix:after {content:"."; display:block; height:0; visibility:hidden; clear:both; }
+.clearfix { *zoom:1; }
+a {text-decoration:none; }
+li {list-style:none; }
+
+#wrap {margin:0 auto; width:910px; }
+#header,#mainbody,#footer {width:100%; }
+#header {margin-bottom:10px; margin-top:5px; }
+#header h1 {float:left;  } 
+#header dl {float:right; margin-top:10px; }
+#header dt {font-weight:bold; color:#5a5a5a; line-height:26px; }
+#header dd {font-size:12px; color:#828282; line-height:24px; }
+#header .nav {background:url(../images/navbg.gif); margin-top:8px; height:36px; }
+#header .nav ul {padding-left:27px; }
+#header .nav li {float:left; margin:0 20px; font-size:16px;  line-height:34px; font-weight:bold;  }
+#header .nav span {float:right; margin-right:48px; line-height:35px; font-weight:bold; padding-left:25px; background:url(../images/arrow_r.gif) 0 8px no-repeat; }
+#header .nav a {color:#fff;}
+#header .nav li.active {background:url(../images/home.gif) 0 4px no-repeat; width:88px; text-align:center; }
+#header .nav li.active a {color:#000;}
+#header .nav li.qq_lab {float:right; background:url(../images/arrow_r.gif) 0 8px no-repeat; padding-left:25px; }
+
+#mainbody .main_content {width:600px; float:left; }
+#mainbody a {color:#266392; }
+#mainbody a:hover {text-decoration:underline; }
+#mainbody .main_content .banner {line-height: 28px; border-bottom: 1px solid #cce6f5; margin-bottom: 10px; margin-top:15px; }
+#mainbody .main_content .banner .left {float:left; font-weight:bold; }
+#mainbody .main_content .banner .right {float:right; font-size:12px; color:#266392; }
+#mainbody .main_content .banner a:hover {text-decoration:underline; }
+
+#mainbody .main_content .content .icon1 {background:url(../images/icon_1.gif) 0 5px no-repeat; }
+#mainbody .main_content .content .icon2 {background:url(../images/icon_2.gif) 0 5px no-repeat; }
+#mainbody .main_content .content .icon3 {background:url(../images/icon_3.gif) 0 5px no-repeat; }
+#mainbody .main_content .content .icon4 {background:url(../images/icon_4.gif) 0 5px no-repeat; }
+#mainbody .main_content .content .icon5 {background:url(../images/icon_5.gif) 0 5px no-repeat; }
+#mainbody .main_content .content .icon6 {background:url(../images/icon_6.gif) 0 5px no-repeat; }
+#mainbody .main_content .content li {margin-bottom:15px; }
+#mainbody .main_content .content li a {margin-right:10px; font-weight:bold; }
+#mainbody .main_content .content li span {float:right; font-size:12px; }
+#mainbody .main_content .content li span a {font-size:12px; font-weight:normal; margin:0; }
+#mainbody .main_content .content li dl {text-indent:45px; }
+#mainbody .main_content .content li dt a.download {padding:3px 0 0 15px; background:url(../images/downicon.gif) 0 6px no-repeat; }
+#mainbody .main_content .content li dt a.new {padding-right:15px; background:url(../images/new.gif) right 4px no-repeat; }
+#mainbody .main_content .content li dt {color:#828282; font-size:12px; font-weight:normal; line-height:26px; }
+#mainbody .main_content .content li dd {color:#323232; line-height:24px; }
+
+#mainbody .sidebar {float:right;width:280px; }
+#mainbody .sidebar h2 {line-height:28px; border-bottom:1px solid #cce6f5; margin-bottom:10px; }
+#mainbody .sidebar a {font-size:12px; }
+#mainbody .sidebar .list1 li {line-height:22px; }
+#mainbody .sidebar .box {margin-bottom:15px; }
+#mainbody .sidebar .list2 li {line-height:26px; padding-left:23px; margin-bottom:5px; }
+#mainbody .sidebar .list2 .download {padding:3px 0 0 15px; background:url(../images/downicon.gif) 0 6px no-repeat; }
+#mainbody .sidebar .list2 span {float:right; }
+#mainbody .sidebar h2 a {font-size:14px; }
+#mainbody .sidebar h2 a span {font-size:12px; float:right; font-weight:normal; }
+#mainbody .sidebar .soft_icon1 {background:url(../images/soft_r_1.gif) 0 5px no-repeat; }
+#mainbody .sidebar .soft_icon2 {background:url(../images/soft_r_2.gif) 0 5px no-repeat; }
+#mainbody .sidebar .soft_icon3 {background:url(../images/soft_r_3.gif) 0 5px no-repeat; }
+#mainbody .sidebar .soft_icon4 {background:url(../images/soft_r_4.gif) 0 5px no-repeat; }
+#mainbody .sidebar .soft_icon5 {background:url(../images/soft_r_5.gif) 0 5px no-repeat; }
+#mainbody .sidebar .soft_icon6 {background:url(../images/soft_r_6.gif) 0 5px no-repeat; }
+#mainbody .sidebar .box .list3 a {font-size: 12px; width: 88px; float: left; margin-right: 5px; line-height: 26px; }
+
+#footer {margin-top:10px; padding:15px 0; width:100%; text-align:center; border-top:1px solid #e6e6e6; background:#f8f8f8;}
+#footer p {line-height:24px; color:#9e9e9e; font-size:12px; }
+
+

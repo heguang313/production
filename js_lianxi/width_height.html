@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>同时运动</title>
+<style type="text/css">
+	*{padding:0;margin:0}
+	div{  width:200px;
+	      height:80px;
+	      background:#FF3;
+	      filter:alpha(opacity:30);
+	      opacity:0.3;
+	      margin:20px 0;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var div1 = document.getElementById('div1');
+	div1.onmouseover=function(){
+		startMove(div1,{width:400,height:160})
+	}
+	div1.onmouseout=function(){
+		startMove(div1,{width:200,height:80})
+	}
+}
+	function getStyle(obj,attr){
+		if(obj.currentStyle){
+		return obj.currentStyle[attr];
+		}
+		else{
+		return getComputedStyle(obj,false)[attr];
+		} 
+	}
+	 function startMove(obj,json){
+		 clearInterval(obj.timer);
+		 obj.timer=setInterval(function(){
+			 for(var attr in json){
+			 var speed=0;
+			 var iCur=parseInt(getStyle(obj,attr));
+			 if(json[attr]>iCur){
+			 	speed=Math.ceil((json[attr]-iCur)/8);
+				}
+			 else if(json[attr]<iCur){
+			 	speed=Math.floor((json[attr]-iCur)/8);
+				}
+		      if(iCur==json[attr]){
+		      	clearInterval(obj.timer);
+				}
+			 else{
+			 	obj.style[attr]=iCur+speed+'px';
+				}
+			}
+		},30);
+	}
+</script>
+</head>
+
+<body>
+	<div id="div1">
+	</div>
+</body>
+</html>
