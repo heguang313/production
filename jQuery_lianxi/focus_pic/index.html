@@ -73,105 +73,105 @@ li{list-style: none;}
     <a href="javascript:;" id="prev" class="arrow">&lt;</a>
     <a href="javascript:;" id="next" class="arrow">&gt;</a>
 </div>
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="../jquery-1.8.2.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-    var oUl = $('#banner_imgs'),
-        oLi = $('#banner_imgs li'),
-        oA = $('#number a'),
-        prev = $('#prev'),
-        next = $('#next'),
-        len = 5,//实际图片张数
-        timer = null,
-        picWidth = 800,//图片的宽度
-        index = 1,
-        interval = 3000;
+    $(function(){
+        var oUl = $('#banner_imgs'),
+            oLi = $('#banner_imgs li'),
+            oA = $('#number a'),
+            prev = $('#prev'),
+            next = $('#next'),
+            len = 5,//实际图片张数
+            timer = null,
+            picWidth = 800,//图片的宽度
+            index = 1,
+            interval = 3000;
 
-        //制作图片移动地动画效果
-        function animate(offset){
-            var time = 300,
-                newLeft = parseInt(oUl.css('left')) + offset;
-            if (offset > 0) {
-                offset = '+=' + offset;
-            }else{
-                offset = '-=' + Math.abs(offset);
+            //制作图片移动地动画效果
+            function animate(offset){
+                var time = 300,
+                    newLeft = parseInt(oUl.css('left')) + offset;
+                if (offset > 0) {
+                    offset = '+=' + offset;
+                }else{
+                    offset = '-=' + Math.abs(offset);
+                }
+                    oUl.animate({'left': offset}, time, function(){
+                        if (newLeft < -picWidth*len) {
+                            oUl.css('left',-picWidth);
+                        }
+                        if (newLeft > -picWidth) {
+                            oUl.css('left',-picWidth*len);
+                        }
+                    });
             }
-                oUl.animate({'left': offset}, time, function(){
-                    if (newLeft < -picWidth*len) {
-                        oUl.css('left',-picWidth);
-                    }
-                    if (newLeft > -picWidth) {
-                        oUl.css('left',-picWidth*len);
-                    }
-                });
-        }
-     
-        //封装与图片同步的按钮改变样式的函数
-        function getChange(){
-            oA.eq(index-1).addClass('now').siblings().removeClass('now');
-            }
+         
+            //封装与图片同步的按钮改变样式的函数
+            function getChange(){
+                oA.eq(index-1).addClass('now').siblings().removeClass('now');
+                }
 
-        //封装点击前一张按钮时的函数
-        prev.on('click' ,function () {
-            if (oUl.is(':animated')) {
-                return;
-            }
-            animate(picWidth);
-            if (index === 1) {
-                index = 5
-            }else{
-                index--;
-            }
-            getChange(index);
-        });
-
-        //封装点击下一张按钮时的函数
-        next.on('click',function () {
-            if (oUl.is(':animated')) {
-                return;
-            }
-            animate(-picWidth);
-            if (index === 5) {
-                index = 1
-            }else{
-                index++;
-            }
-            getChange();
-        }) ;
-
-        //绑定小方块与对应的图片
-        oA.each(function(){
-            var m = $(this),
-                num = m.index();
-            m.attr('index',num+1);
-            oA.on('click',function(){
+            //封装点击前一张按钮时的函数
+            prev.on('click' ,function () {
                 if (oUl.is(':animated')) {
                     return;
                 }
-                if (oUl.hasClass('now')) {
+                animate(picWidth);
+                if (index === 1) {
+                    index = 5
+                }else{
+                    index--;
+                }
+                getChange(index);
+            });
+
+            //封装点击下一张按钮时的函数
+            next.on('click',function () {
+                if (oUl.is(':animated')) {
                     return;
                 }
-                var myIndex = parseInt($(this).attr('index'));
-                var offset = -picWidth*(myIndex-index);
-                animate(offset);
-                index = myIndex;
+                animate(-picWidth);
+                if (index === 5) {
+                    index = 1
+                }else{
+                    index++;
+                }
                 getChange();
-            });    
-        });
+            }) ;
 
-        //实现自动轮播和当鼠标悬停在图片上时暂停轮播，离开后继续
-        function start () {
-            timer = setTimeout(function(){
-                next.trigger('click');
-                start();
-            },interval);
-        }
-        function stop(){
-            clearTimeout(timer);
-        }
-        oUl.hover(stop,start);
-        start();
-})
+            //绑定小方块与对应的图片
+            oA.each(function(){
+                var m = $(this),
+                    num = m.index();
+                m.attr('index',num+1);
+                oA.on('click',function(){
+                    if (oUl.is(':animated')) {
+                        return;
+                    }
+                    if (oUl.hasClass('now')) {
+                        return;
+                    }
+                    var myIndex = parseInt($(this).attr('index'));
+                    var offset = -picWidth*(myIndex-index);
+                    animate(offset);
+                    index = myIndex;
+                    getChange();
+                });    
+            });
+
+            //实现自动轮播和当鼠标悬停在图片上时暂停轮播，离开后继续
+            function start () {
+                timer = setTimeout(function(){
+                    next.trigger('click');
+                    start();
+                },interval);
+            }
+            function stop(){
+                clearTimeout(timer);
+            }
+            oUl.hover(stop,start);
+            start();
+    })
 </script>
 </body>
 </html>
