@@ -65,7 +65,7 @@ function getByClass(parent,cls){
 //封装获取数组索引的函数
 function getIndex(value,arry){
 	for (var m in arry){
-		if (arry[m] == value) {
+		if (arry[m] === value) {
 			return m;
 		}
 	}
