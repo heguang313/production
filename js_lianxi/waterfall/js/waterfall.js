@@ -43,7 +43,8 @@ function waterFall(parentId,cls){
 			var minIndex = getIndex(minH,pinsH);//获取最小高度对象的索引
 			oPins[j].style.position = 'absolute';
 			oPins[j].style.top = minH +'px';
-			oPins[j].style.left = oPins[minIndex].offsetLeft + 'px';
+			//oPins[j].style.left = oPins[minIndex].offsetLeft + 'px';
+			oPins[j].style.left = minIndex*pinW + 'px';
 			pinsH[minIndex] +=oPins[j].offsetHeight;//更新原最小高度值对应列的高度值
 		}
 	};
